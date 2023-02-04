@@ -1,27 +1,36 @@
-import React from "react";
+import { useSelector } from "react-redux";
 
 const Videos = () => {
+  const { videos } = useSelector((store) => store.videoSlice);
+
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
-        <img
-          className="rounded-t-lg"
-          src="https://lavinya.net/wp-content/uploads/2022/11/4c62ba-manzara-gol-lake-landscape-scaled.jpeg"
-          alt=""
-        />
-      </a>
-      <div className="p-5">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Noteworthy technology acquisitions 2021
-          </h5>
-        </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
-        </p>
-        
-      </div>
+    <div className="flex flex-row justify-center flex-wrap gap-4 mt-8">
+      {videos?.items?.map((item) => {
+        const { id, snippet:{title, description} } = item;
+        return (
+          <>
+            <div className="flex justify-center mt-5">
+              <div className="flex flex-col rounded-lg shadow-lg bg-white max-w-sm">
+                <iframe
+                  height="260"
+                  src={`https://www.youtube.com/embed/${id}`}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+                <div className="p-6">
+                  <h5 className="text-gray-900 text-xl font-medium mb-2">
+                    {title}
+                  </h5>
+                  <p className="text-gray-700 text-base mb-4">
+                    {description.slice(0,150)}...
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 };

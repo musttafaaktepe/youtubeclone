@@ -1,19 +1,19 @@
-import axios from 'axios'
+
 import React, { useEffect } from 'react'
 import Videos from '../../components/Videos'
+import { useDispatch } from 'react-redux'
+import youtubeApi from '../../api/youtubeApi'
+import { getVideos } from '../../redux/features/videoSlice'
 
 const Home = () => {
 
-    const baseUrl ="https://googleapis.com/youtube/v3"
+    const dispatch = useDispatch()
 
     const getYoutubeVideos =async ()=>{
         try {
-            await axios.get(`${baseUrl}/videos?part=snippetchart=mostPopular`, {
-                params:{
-                    key:process.env.REACT_APP_API_KEY,
-                    maxResults:50
-                }
-            } )
+            const {data} = await youtubeApi.get(`/videos?chart=mostPopular`)
+            console.log(data);
+            dispatch(getVideos(data))
         } catch (error) {
             console.log(error.message)
         }
@@ -21,11 +21,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-
-      getYoutubeVideos()
+        getYoutubeVideos()
     }, [])
-    
-
 
   return (
     <div>
