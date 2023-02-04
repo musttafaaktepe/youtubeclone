@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 const Videos = () => {
-  const { videos } = useSelector((store) => store.videoSlice);
+  const { searchInput, videos } = useSelector((store) => store.videoSlice);
 
   return (
     <div className="flex flex-row justify-center flex-wrap gap-4 mt-8">
@@ -13,7 +13,7 @@ const Videos = () => {
               <div className="flex flex-col rounded-lg shadow-lg bg-white max-w-sm">
                 <iframe
                   height="260"
-                  src={`https://www.youtube.com/embed/${id}`}
+                  src={`https://www.youtube.com/embed/${searchInput ? id?. videoId : id}`}
                   title="YouTube video player"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
