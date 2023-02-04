@@ -1,13 +1,20 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { searchInputValue } from "../redux/features/videoSlice";
+import youtubeIcon from "../assets/youtube-icon.png"
 
 const SearchBar = () => {
-  const { searchInput } = useSelector((state) => state.videoSlice);
+  const { searchInput } = useSelector((store) => store.videoSlice);
   const dispatch = useDispatch();
   console.log(searchInput);
 
   return (
+    <div className="flex flex-col  "  >
+    <div className="flex justify-center items-center gap-4 m-5" >
+      <img className="w-20" src={youtubeIcon} alt="" />
+      <p className="text-2xl"  >YouTube Clone</p>
+    </div>
+    
     <form className="m-[4rem]">
       <label
         htmlFor="default-search"
@@ -51,6 +58,8 @@ const SearchBar = () => {
         </button>
       </div>
     </form>
+    </div>
+
   );
 };
 
